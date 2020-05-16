@@ -1,0 +1,3 @@
+rootProject.name='EQABase'
+include ':app'
+include ':baselibrary'
