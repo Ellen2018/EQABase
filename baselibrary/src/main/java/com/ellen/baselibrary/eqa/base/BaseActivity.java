@@ -2,17 +2,25 @@ package com.ellen.baselibrary.eqa.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
+    protected View rootView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatus();
-        setContentView(setLayoutId());
+        if(setLayoutId() == -1){
+            rootView = setView();
+            setContentView(rootView);
+        }else {
+            setContentView(setLayoutId());
+        }
         //是否支持ButterKnife接口
         if(this instanceof ButterKnifeInterface){
             ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
@@ -38,11 +46,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     //设置状态栏
     protected abstract void setStatus();
     //设置布局id
-    protected abstract int setLayoutId();
+    protected int setLayoutId(){
+        return -1;
+    }
+    protected View setView(){
+        return null;
+    }
     protected abstract void initView();
     protected abstract void initData();
-    //Activity销毁时回调
-    protected abstract void destory();
     //设置横竖屏,null->跟随系统,true->横屏,false->竖屏
     protected Boolean isSetVerticalScreen(){
         return null;
@@ -50,12 +61,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected String getTag(){
         return getClass().getSimpleName();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        destory();
     }
 
     //支持ButterKnife的接口

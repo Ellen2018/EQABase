@@ -7,8 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.ellen.baselibrary.eqa.base.BaseFragment;
 import com.ellen.baselibrary.eqa.loading.LoadingManger;
-import com.ellen.baselibrary.eqa.simpleapi.LocalAppBroadcastManager;
-import com.ellen.baselibrary.eqa.simpleapi.SystemBroadcastManager;
+import com.ellen.baselibrary.eqa.simpleapi.broadcast.LocalAppBroadcastManager;
 
 public class LoadingFragment extends BaseFragment {
 

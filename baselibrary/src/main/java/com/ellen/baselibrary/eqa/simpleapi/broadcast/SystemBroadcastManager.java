@@ -1,10 +1,8 @@
-package com.ellen.baselibrary.eqa.simpleapi;
+package com.ellen.baselibrary.eqa.simpleapi.broadcast;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
-import android.util.Log;
-
 import androidx.fragment.app.FragmentActivity;
 
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;

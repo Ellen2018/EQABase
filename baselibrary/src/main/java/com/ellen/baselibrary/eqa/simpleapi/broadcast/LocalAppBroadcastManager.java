@@ -1,4 +1,4 @@
-package com.ellen.baselibrary.eqa.simpleapi;
+package com.ellen.baselibrary.eqa.simpleapi.broadcast;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
