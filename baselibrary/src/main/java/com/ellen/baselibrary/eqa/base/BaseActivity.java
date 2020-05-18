@@ -2,6 +2,7 @@ package com.ellen.baselibrary.eqa.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -68,4 +69,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         void initButterKnife();
     }
 
+    protected boolean back(){
+        return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(back()){
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

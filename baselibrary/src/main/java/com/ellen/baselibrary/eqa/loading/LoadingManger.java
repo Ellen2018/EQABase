@@ -144,7 +144,7 @@ public class LoadingManger {
         }
     }
 
-    public void setUpdateUiCallback(LoadingCallback loadingCallback) {
+    public void setLoadingCallback(LoadingCallback loadingCallback) {
         this.loadingCallback = loadingCallback;
     }
 
@@ -183,72 +183,65 @@ public class LoadingManger {
 
     private void updateUi() {
         if (loadingCallback == null) return;
-        if (emptyView != null && emptyView.getVisibility() == View.VISIBLE) {
-            loadingCallback.updateEmptyViewUi();
-            loadingCallback.hideContentView();
-            loadingCallback.hideLoadingView();
-            loadingCallback.hideFailureView();
-        } else if (contentView != null && contentView.getVisibility() == View.VISIBLE) {
-            loadingCallback.hideEmptyView();
-            loadingCallback.updateContentViewUi();
-            loadingCallback.hideLoadingView();
-            loadingCallback.hideFailureView();
-        } else if (loadingView != null && loadingView.getVisibility() == View.VISIBLE) {
-            loadingCallback.hideEmptyView();
-            loadingCallback.hideContentView();
-            loadingCallback.updateLoadingViewUi();
-            loadingCallback.hideFailureView();
-        } else if(failureView != null && failureView.getVisibility() == View.VISIBLE){
-            loadingCallback.hideEmptyView();
-            loadingCallback.hideContentView();
-            loadingCallback.hideLoadingView();
-            loadingCallback.updateFailureViewUi();
+        boolean content = false, empty = false, loading = false, failure = false;
+        if (contentView != null && contentView.getVisibility() == View.VISIBLE) {
+            content = true;
         }
+        if (emptyView != null && emptyView.getVisibility() == View.VISIBLE) {
+            empty = true;
+        }
+        if (loadingView != null && loadingView.getVisibility() == View.VISIBLE) {
+            loading = true;
+        }
+        if (failureView != null && failureView.getVisibility() == View.VISIBLE) {
+            failure = true;
+        }
+        loadingCallback.show(content, empty, loading, failure);
     }
 
-    public void showByYouSelf(boolean isShowContent,boolean isShowEmpty,boolean isShowLoading,boolean isShowFailure){
-        show(isShowContent,isShowEmpty,isShowLoading,isShowFailure);
+    public void showByYouSelf(boolean isShowContent, boolean isShowEmpty, boolean isShowLoading, boolean isShowFailure) {
+        show(isShowContent, isShowEmpty, isShowLoading, isShowFailure);
     }
 
     public void showEmpty() {
-        show(false,true,false,false);
+        show(false, true, false, false);
     }
 
     public void showLoading() {
-        show(false,false,true,false);
+        show(false, false, true, false);
     }
 
     public void showContent() {
-        show(true,false,false,false);
+        show(true, false, false, false);
     }
 
     public void showFailure() {
-       show(false,false,false,true);
+        show(false, false, false, true);
     }
 
-    private void show(boolean isShowContent,boolean isShowEmpty,boolean isShowLoading,boolean isShowFailure){
-        if(contentView != null) {
+    private void show(boolean isShowContent, boolean isShowEmpty, boolean isShowLoading, boolean isShowFailure) {
+        if (contentView != null) {
             if (isShowContent) {
                 contentView.setVisibility(View.VISIBLE);
             } else {
                 contentView.setVisibility(View.GONE);
             }
         }
-        if(emptyView != null) {
+        if (emptyView != null) {
             if (isShowEmpty) {
                 emptyView.setVisibility(View.VISIBLE);
             } else {
                 emptyView.setVisibility(View.GONE);
             }
         }
-        if(loadingView != null) {
+        if (loadingView != null) {
             if (isShowLoading) {
                 loadingView.setVisibility(View.VISIBLE);
             } else {
                 loadingView.setVisibility(View.GONE);
             }
         }
-        if(failureView != null) {
+        if (failureView != null) {
             if (isShowFailure) {
                 failureView.setVisibility(View.VISIBLE);
             } else {
