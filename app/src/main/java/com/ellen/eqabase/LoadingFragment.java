@@ -18,7 +18,7 @@ public class LoadingFragment extends BaseFragment {
     @Override
     protected void initData() {
         loadingManger = new LoadingManger(getActivity(), relativeLayout, R.layout.view_empty, R.layout.fragment_content);
-        loadingManger.showContent();
+        loadingManger.showByYouSelf(false,true,false,false);
         broadcastManager = new LocalAppBroadcastManager(getActivity());
         broadcastManager.register("1", new BroadcastReceiver() {
             @Override
