@@ -29,4 +29,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+
+    //悬浮窗权限申请适配库
+    implementation 'com.github.czy1121:settingscompat:1.1.4'
+
+    implementation 'com.tencent:mmkv-static:1.1.1'
 }
