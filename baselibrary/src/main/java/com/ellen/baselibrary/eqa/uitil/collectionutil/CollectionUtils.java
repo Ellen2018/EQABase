@@ -14,7 +14,7 @@ public class CollectionUtils {
         E e = eList.get(0);
         if (!(e instanceof CompareableInterface)) {
             //抛出异常 -> 说明它没有实现比较器接口
-            throw new CompareableException("", "your class Not Implemented CompareableInterface");
+            throw new CompareableException("", "your class : "+e.getClass().getName()+" Not Implemented CompareableInterface");
         }
         //使用冒泡排序进行排序
         for (int i = 0; i < copyList.size(); i++) {
@@ -35,7 +35,7 @@ public class CollectionUtils {
         E e = eList.get(0);
         if (!(e instanceof ArrangeInterface)) {
             //抛出异常 -> 说明它没有实现归类整理器接口
-            throw new CompareableException("", "your class Not Implemented ArrangeInterface");
+            throw new CompareableException("", "your class : "+e.getClass().getName()+" Not Implemented ArrangeInterface");
         }
         if(eList == null || eList.size() == 0){
             //执行这里说明无法进行整理归类
