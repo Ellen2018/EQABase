@@ -1,8 +1,5 @@
 package com.ellen.eqabase;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,7 +35,6 @@ public class LoadingFragment extends BaseFragment {
                 }
             }
         });
-        
         loadingManger.showLoading();
     }
 

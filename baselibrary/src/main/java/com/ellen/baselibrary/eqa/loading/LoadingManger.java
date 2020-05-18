@@ -245,37 +245,29 @@ public class LoadingManger {
         if (contentView != null) {
             if (isShowContent) {
                 contentView.setVisibility(View.VISIBLE);
-                Log.e("Ellen2018","内容视图显示了");
             } else {
                 contentView.setVisibility(View.GONE);
-                Log.e("Ellen2018","内容视图隐藏了");
             }
         }
         if (emptyView != null) {
             if (isShowEmpty) {
                 emptyView.setVisibility(View.VISIBLE);
-                Log.e("Ellen2018","空视图显示了");
             } else {
                 emptyView.setVisibility(View.GONE);
-                Log.e("Ellen2018","空视图隐藏了");
             }
         }
         if (loadingView != null) {
             if (isShowLoading) {
                 loadingView.setVisibility(View.VISIBLE);
-                Log.e("Ellen2018","加载视图显示了");
             } else {
                 loadingView.setVisibility(View.GONE);
-                Log.e("Ellen2018","加载视图隐藏了");
             }
         }
         if (failureView != null) {
             if (isShowFailure) {
                 failureView.setVisibility(View.VISIBLE);
-                Log.e("Ellen2018","失败视图显示了");
             } else {
                 failureView.setVisibility(View.GONE);
-                Log.e("Ellen2018","失败视图隐藏了");
             }
         }
         updateUi();
