@@ -5,43 +5,49 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ellen.baselibrary.eqa.base.BaseFragment;
 import com.ellen.baselibrary.eqa.loading.LoadingCallback;
 import com.ellen.baselibrary.eqa.loading.LoadingManger;
 import com.ellen.baselibrary.eqa.loading.ShowBean;
-import com.ellen.baselibrary.eqa.simpleapi.broadcast.LocalAppBroadcastManager;
 
 public class LoadingFragment extends BaseFragment {
 
     private RelativeLayout relativeLayout;
+    private TextView tvContentView,tvEmptyView,tvLoadingView,tvFailureView;
     private LoadingManger loadingManger;
-    private LocalAppBroadcastManager broadcastManager;
 
     @Override
     protected void initData() {
-        loadingManger = new LoadingManger(getActivity(), relativeLayout, R.layout.view_empty, R.layout.fragment_content);
+        loadingManger = new LoadingManger(getActivity(),tvContentView,tvEmptyView,tvLoadingView,tvFailureView);
         loadingManger.setLoadingCallback(new LoadingCallback() {
             @Override
             public void show(ShowBean showBean) {
                 if(showBean.isShowContent()){
                     Log.e("Ellen2018","显示内容");
                 }
+                if(showBean.isShowEmpty()){
+                    Log.e("Ellen2018","显示空视图");
+                }
+                if(showBean.isShowLoading()){
+                    Log.e("Ellen2018","显示加载视图");
+                }
+                if(showBean.isShowFailure()){
+                    Log.e("Ellen2018","显示失败视图");
+                }
             }
         });
-        loadingManger.showByYouSelf(true,true,false,false);
-        broadcastManager = new LocalAppBroadcastManager(getActivity());
-        broadcastManager.register("1", new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-            }
-        });
+        loadingManger.showLoading();
     }
 
     @Override
     protected void initView() {
         relativeLayout = findViewById(R.id.rl_parent);
+        tvContentView = findViewById(R.id.tv_content);
+        tvEmptyView = findViewById(R.id.tv_empty);
+        tvLoadingView = findViewById(R.id.tv_loading);
+        tvFailureView = findViewById(R.id.tv_failure);
     }
 
     @Override

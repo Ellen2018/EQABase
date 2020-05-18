@@ -3,6 +3,39 @@
     android:id="@+id/rl_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/colorAccent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:text="内容视图"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:text="空视图"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_loading"
+        android:layout_width="match_parent"
+        android:text="加载视图"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_failure"
+        android:layout_width="match_parent"
+        android:text="失败视图"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

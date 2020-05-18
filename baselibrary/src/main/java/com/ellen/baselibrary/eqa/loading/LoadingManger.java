@@ -2,6 +2,7 @@ package com.ellen.baselibrary.eqa.loading;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -27,6 +28,14 @@ public class LoadingManger {
     private WeakReference<Activity> activityWeakReference;
     private LoadingCallback loadingCallback;
 
+    private void init(Activity activity,View contentView,View emptyView,View loadingView,View failureView){
+        activityWeakReference = new WeakReference<>(activity);
+        this.contentView = contentView;
+        this.emptyView = emptyView;
+        this.loadingView = loadingView;
+        this.failureView = failureView;
+    }
+
     private void init(Activity activity, View parentView, int emptyLayoutId, int loadingLayoutId, int contentLayoutId, int failureLayoutId) {
         activityWeakReference = new WeakReference<>(activity);
         if (parentView != null) {
@@ -34,6 +43,14 @@ public class LoadingManger {
         }
         layoutInflater(emptyLayoutId, loadingLayoutId, contentLayoutId, failureLayoutId);
         addView();
+    }
+
+    public LoadingManger(Activity activity,View contentView,View emptyView){
+        init(activity,contentView,emptyView,null,null);
+    }
+
+    public LoadingManger(Activity activity,View contentView,View emptyView,View loadingView,View failureView){
+        init(activity,contentView,emptyView,loadingView,failureView);
     }
 
     /**
@@ -228,29 +245,37 @@ public class LoadingManger {
         if (contentView != null) {
             if (isShowContent) {
                 contentView.setVisibility(View.VISIBLE);
+                Log.e("Ellen2018","内容视图显示了");
             } else {
                 contentView.setVisibility(View.GONE);
+                Log.e("Ellen2018","内容视图隐藏了");
             }
         }
         if (emptyView != null) {
             if (isShowEmpty) {
                 emptyView.setVisibility(View.VISIBLE);
+                Log.e("Ellen2018","空视图显示了");
             } else {
                 emptyView.setVisibility(View.GONE);
+                Log.e("Ellen2018","空视图隐藏了");
             }
         }
         if (loadingView != null) {
             if (isShowLoading) {
                 loadingView.setVisibility(View.VISIBLE);
+                Log.e("Ellen2018","加载视图显示了");
             } else {
                 loadingView.setVisibility(View.GONE);
+                Log.e("Ellen2018","加载视图隐藏了");
             }
         }
         if (failureView != null) {
             if (isShowFailure) {
                 failureView.setVisibility(View.VISIBLE);
+                Log.e("Ellen2018","失败视图显示了");
             } else {
                 failureView.setVisibility(View.GONE);
+                Log.e("Ellen2018","失败视图隐藏了");
             }
         }
         updateUi();
