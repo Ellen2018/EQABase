@@ -196,7 +196,12 @@ public class LoadingManger {
         if (failureView != null && failureView.getVisibility() == View.VISIBLE) {
             failure = true;
         }
-        loadingCallback.show(content, empty, loading, failure);
+        ShowBean showBean = new ShowBean();
+        showBean.setShowContent(content);
+        showBean.setShowEmpty(empty);
+        showBean.setShowLoading(loading);
+        showBean.setShowFailure(failure);
+        loadingCallback.show(showBean);
     }
 
     public void showByYouSelf(boolean isShowContent, boolean isShowEmpty, boolean isShowLoading, boolean isShowFailure) {

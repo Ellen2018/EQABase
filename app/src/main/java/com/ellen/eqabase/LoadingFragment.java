@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.ellen.baselibrary.eqa.base.BaseFragment;
 import com.ellen.baselibrary.eqa.loading.LoadingCallback;
 import com.ellen.baselibrary.eqa.loading.LoadingManger;
+import com.ellen.baselibrary.eqa.loading.ShowBean;
 import com.ellen.baselibrary.eqa.simpleapi.broadcast.LocalAppBroadcastManager;
 
 public class LoadingFragment extends BaseFragment {
@@ -22,12 +23,9 @@ public class LoadingFragment extends BaseFragment {
         loadingManger = new LoadingManger(getActivity(), relativeLayout, R.layout.view_empty, R.layout.fragment_content);
         loadingManger.setLoadingCallback(new LoadingCallback() {
             @Override
-            public void show(boolean content, boolean empty, boolean loading, boolean failure) {
-                if(content){
-                    Log.e("Ellen2018","显示了内容");
-                }
-                if(empty){
-                    Log.e("Ellen2018","显示了空视图");
+            public void show(ShowBean showBean) {
+                if(showBean.isShowContent()){
+                    Log.e("Ellen2018","显示内容");
                 }
             }
         });
