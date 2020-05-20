@@ -1,41 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorAccent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
-        android:text="内容视图"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:text="内容视图"
         android:textSize="40sp"
-        android:layout_height="match_parent"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_empty"
         android:layout_width="match_parent"
-        android:text="空视图"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:text="空视图"
         android:textSize="40sp"
-        android:layout_height="match_parent"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_loading"
         android:layout_width="match_parent"
-        android:text="加载视图"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:text="加载视图"
         android:textSize="40sp"
-        android:layout_height="match_parent"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_failure"
         android:layout_width="match_parent"
-        android:text="失败视图"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:text="失败视图"
         android:textSize="40sp"
-        android:layout_height="match_parent"/>
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:layout_height="?actionBarSize">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:textColor="@color/colorAccent"
+            android:text="状态1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:textColor="@color/colorAccent"
+            android:text="状态2"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv3"
+            android:textColor="@color/colorAccent"
+            android:text="状态3"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv4"
+            android:textColor="@color/colorAccent"
+            android:text="状态4"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+
+
+    </LinearLayout>
 
 </RelativeLayout>
