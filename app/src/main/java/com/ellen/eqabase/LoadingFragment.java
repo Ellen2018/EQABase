@@ -1,6 +1,5 @@
 package com.ellen.eqabase;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -8,7 +7,6 @@ import android.widget.TextView;
 import com.ellen.baselibrary.eqa.base.BaseFragment;
 import com.ellen.baselibrary.eqa.loading.LoadingManger;
 import com.ellen.baselibrary.eqa.loading.status.Status;
-import com.ellen.baselibrary.eqa.loading.status.StatusChangeListener;
 import com.ellen.baselibrary.eqa.loading.status.StatusManager;
 import com.ellen.baselibrary.eqa.loading.status.StatusUpdate;
 
@@ -63,24 +61,6 @@ public class LoadingFragment extends BaseFragment implements View.OnClickListene
         loadingStatus.setStatusUpdate(statusUpdate);
         statusManager.addStatus(failureStatus = new Status());
         failureStatus.setStatusUpdate(statusUpdate);
-
-        statusManager.setStatusChangeListener(new StatusChangeListener() {
-            @Override
-            public void statusChange(Status oldStatus, Status newStatus) {
-               if(oldStatus == null){
-
-               }else {
-                   oldStatus.deActive();
-               }
-               newStatus.active();
-            }
-
-            @Override
-            public void cancel() {
-
-            }
-        });
-
         statusManager.submitStatus(contentStatus);
     }
 
@@ -100,6 +80,8 @@ public class LoadingFragment extends BaseFragment implements View.OnClickListene
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
+
+        findViewById(R.id.tv5).setOnClickListener(this);
     }
 
     @Override
@@ -121,6 +103,9 @@ public class LoadingFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.tv4:
                 statusManager.submitStatus(failureStatus);
+                break;
+            case R.id.tv5:
+                statusManager.cancel();
                 break;
         }
     }

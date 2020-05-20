@@ -24,13 +24,13 @@ public class Status{
     }
 
 
-    public void active() {
+    void active() {
         if (statusUpdate != null) {
             statusUpdate.active(this);
         }
     }
 
-    public void deActive() {
+    void deActive() {
         if (statusUpdate != null) {
             statusUpdate.deActive(this);
         }

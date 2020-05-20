@@ -1,5 +1,6 @@
 package com.ellen.eqabase;
 
+import android.view.View;
 import android.widget.Toast;
 
 import com.ellen.baselibrary.eqa.base.BaseActivity;

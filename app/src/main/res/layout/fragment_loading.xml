@@ -84,6 +84,14 @@
             android:layout_weight="1"
             android:layout_height="match_parent"/>
 
+        <TextView
+            android:id="@+id/tv5"
+            android:textColor="@color/colorAccent"
+            android:text="退出"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
 
 
     </LinearLayout>
