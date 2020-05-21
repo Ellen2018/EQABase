@@ -3,7 +3,7 @@ package com.ellen.baselibrary.eqa.save.file;
 import android.content.Context;
 import android.os.Environment;
 
-public class AndroidFailePath {
+public class AndroidFilePath {
 
     /**
      * 获取Android 外部存储目录

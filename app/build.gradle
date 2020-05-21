@@ -30,4 +30,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
     implementation project(path: ':baselibrary')
+    implementation 'com.github.Ellen2018:DhcSQLite:1.0.6'
 }
