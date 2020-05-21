@@ -31,4 +31,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
     implementation project(path: ':baselibrary')
     implementation 'com.github.Ellen2018:DhcSQLite:1.0.6'
+    implementation project(path: ':7ziplibrary')
 }

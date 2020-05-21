@@ -17,6 +17,8 @@ import com.ellen.sqlitecreate.createsql.create.createtable.SQLField;
 import java.io.File;
 import java.util.List;
 
+import SevenZip.Compression.LZMA.Encoder;
+
 public class MainActivity extends BaseActivity {
 
     private PermissionUtils permissionUtils;
@@ -69,7 +71,6 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void failure() {
-
             }
         });
     }

@@ -1,3 +1,4 @@
 rootProject.name='EQABase'
 include ':app'
 include ':baselibrary'
+include ':7ziplibrary'
