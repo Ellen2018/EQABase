@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.ellen.baselibrary.eqa.base.BaseActivity;
 import com.ellen.baselibrary.eqa.save.file.AndroidFilePath;
+import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;
+import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListenerManager;
 import com.ellen.baselibrary.eqa.uitil.PermissionUtils;
 import com.ellen.dhcsqlitelibrary.table.reflection.ZxyReflectionTable;
 import com.ellen.eqabase.bean.Person;
@@ -71,6 +73,27 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void failure() {
+            }
+        });
+        ActivityLifeListenerManager activityLifeListenerManager = new ActivityLifeListenerManager();
+        activityLifeListenerManager.startActivityLifeListener(this, new ActivityLifeListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+
+            @Override
+            public void onDestory() {
+
+            }
+
+            @Override
+            public void onResume() {
             }
         });
     }

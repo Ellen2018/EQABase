@@ -28,6 +28,14 @@ public class LifeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(activityLifeListener != null){
+            activityLifeListener.onResume();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if(activityLifeListener != null){

@@ -52,6 +52,11 @@ public class LocalAppBroadcastManager {
                     unRegister(action,broadcastReceiverMap.get(action));
                 }
             }
+
+            @Override
+            public void onResume() {
+
+            }
         });
     }
 

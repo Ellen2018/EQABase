@@ -47,6 +47,11 @@ public class SystemBroadcastManager {
                     unRegister(action,broadcastReceiverMap.get(action));
                 }
             }
+
+            @Override
+            public void onResume() {
+
+            }
         });
     }
 

@@ -45,6 +45,11 @@ public class ServiceManager {
                    stopService(serviceClass);
                }
             }
+
+            @Override
+            public void onResume() {
+
+            }
         });
     }
 

@@ -4,4 +4,5 @@ public interface ActivityLifeListener {
     void onStart();
     void onStop();
     void onDestory();
+    void onResume();
 }
