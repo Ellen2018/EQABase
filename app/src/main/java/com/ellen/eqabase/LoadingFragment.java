@@ -82,7 +82,6 @@ public class LoadingFragment extends BaseFragment implements View.OnClickListene
         tv4.setOnClickListener(this);
 
         findViewById(R.id.tv5).setOnClickListener(this);
-        
     }
 
     @Override
