@@ -1,12 +1,14 @@
 package com.ellen.eqabase;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.ellen.baselibrary.eqa.base.BaseActivity;
+import com.ellen.baselibrary.eqa.base.BaseRegister;
 import com.ellen.baselibrary.eqa.save.file.AndroidFilePath;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListenerManager;
@@ -22,7 +24,7 @@ import java.util.List;
 
 import SevenZip.Compression.LZMA.Encoder;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements BaseRegister {
 
     private PermissionUtils permissionUtils;
 
@@ -89,7 +91,7 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onDestory() {
+            public void onDestroy() {
 
             }
 
@@ -97,6 +99,11 @@ public class MainActivity extends BaseActivity {
             public void onResume() {
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -109,5 +116,15 @@ public class MainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         permissionUtils.onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+
+    @Override
+    public void register(View contentView) {
+        Log.e("Ellen2018","回调1");
+    }
+
+    @Override
+    public void unRegister(View contentView) {
+        Log.e("Ellen2018","回调2");
     }
 }

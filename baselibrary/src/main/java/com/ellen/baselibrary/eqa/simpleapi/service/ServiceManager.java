@@ -39,7 +39,7 @@ public class ServiceManager {
             }
 
             @Override
-            public void onDestory() {
+            public void onDestroy() {
                 //自动结束
                for(Class<? extends Service> serviceClass : serviceList){
                    stopService(serviceClass);

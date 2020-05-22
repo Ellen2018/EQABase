@@ -45,7 +45,7 @@ public class LocalAppBroadcastManager {
             }
 
             @Override
-            public void onDestory() {
+            public void onDestroy() {
                //注销
                 Set<String> set = broadcastReceiverMap.keySet();
                 for(String action:set){

@@ -39,7 +39,7 @@ public class LifeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if(activityLifeListener != null){
-            activityLifeListener.onDestory();
+            activityLifeListener.onDestroy();
         }
     }
 }
