@@ -18,9 +18,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContentView = inflater.inflate(setLayout(), container, false);
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.initButterKnife(mContentView);
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.register(mContentView);
         }
         initView();
         initData();
@@ -39,9 +39,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.unBindButterKnife();
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.unRegister(mContentView);
         }
     }
 
@@ -60,12 +60,6 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initData();
     protected abstract void initView();
     protected abstract int setLayout();
-
-    //支持ButterKnife的接口
-    public interface ButterKnifeInterface {
-        void initButterKnife(View view);
-        void unBindButterKnife();
-    }
 
     public interface LazyLoadInterface{
         void lazyLoad();

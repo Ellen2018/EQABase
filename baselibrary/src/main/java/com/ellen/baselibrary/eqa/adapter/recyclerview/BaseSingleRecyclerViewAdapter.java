@@ -26,28 +26,10 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
     private Map<Integer, BaseViewHolder> footerMap;
     private Map<View, Integer> footerViewMap;
     private List<View> footerViewList;
-    private RefreshLoadMoreCallback refreshLoadMoreCallback;
-
-    public RefreshLoadMoreCallback getRefreshLoadMoreCallback() {
-        return refreshLoadMoreCallback;
-    }
-
-    public void setRefreshLoadMoreCallback(RefreshLoadMoreCallback refreshLoadMoreCallback) {
-        this.refreshLoadMoreCallback = refreshLoadMoreCallback;
-    }
 
     public void setDataList(List<T> dataList){
         this.dataList = dataList;
         notifyDataSetChanged();
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        //防止第一次刷新回调接口不调用的问题
-        if (refreshLoadMoreCallback != null) {
-            refreshLoadMoreCallback.refreshSuccess(true);
-        }
     }
 
     public void addHeaderView(View headerView) {
@@ -222,9 +204,6 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
     public void refreshSuccess(List<T> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
-        if (refreshLoadMoreCallback != null) {
-            refreshLoadMoreCallback.refreshSuccess(false);
-        }
     }
 
     /**
@@ -235,29 +214,6 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
     public void loadMoreSuccess(List<T> dataList) {
         this.dataList.addAll(dataList);
         notifyDataSetChanged();
-        if (refreshLoadMoreCallback != null) {
-            refreshLoadMoreCallback.loadMoreSuccess();
-        }
-    }
-
-    /**
-     * 下拉刷新失败
-     */
-    public void refreshFailure(String errMessage) {
-        if (refreshLoadMoreCallback != null) {
-            refreshLoadMoreCallback.refreshFailure(errMessage);
-        }
-    }
-
-    /**
-     * 上拉加载更多失败
-     *
-     * @param errMessage
-     */
-    public void loadMoreFailure(String errMessage) {
-        if (refreshLoadMoreCallback != null) {
-            refreshLoadMoreCallback.loadMoreFailure(errMessage);
-        }
     }
 
     /**
@@ -296,15 +252,5 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
         footerViewMap = null;
         footerViewList = null;
         notifyDataSetChanged();
-    }
-
-    public interface RefreshLoadMoreCallback {
-        void refreshSuccess(boolean isFirstRefresh);
-
-        void refreshFailure(String errMessage);
-
-        void loadMoreSuccess();
-
-        void loadMoreFailure(String errMessage);
     }
 }

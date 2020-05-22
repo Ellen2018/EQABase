@@ -14,6 +14,7 @@ public abstract class BaseDialog {
     private AlertDialog dialog;
     private WeakReference<Activity> activityWeakReference;
     private OnDismissListener onDismissListener;
+    private View mContentView;
 
     public BaseDialog(Activity activity) {
         activityWeakReference = new WeakReference<>(activity);
@@ -26,12 +27,12 @@ public abstract class BaseDialog {
 
     private void init() {
         dialog = new AlertDialog.Builder(activityWeakReference.get()).create();
-        View view = onCreateView();
+        mContentView = onCreateView();
         //设置布局
-        dialog.setView(view);
-        if (this instanceof ButterKnifeInterface) {
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.initButterKnife(view);
+        dialog.setView(mContentView);
+        if (this instanceof BaseRegister) {
+           BaseRegister baseRegister = (BaseRegister) this;
+           baseRegister.register(mContentView);
         }
         if (setCancelable() != null) {
             dialog.setCancelable(setCancelable());
@@ -58,11 +59,15 @@ public abstract class BaseDialog {
         onResume();
     }
 
+    protected <T extends View> T findViewById(int id){
+        return mContentView.findViewById(id);
+    }
+
     public void dismiss() {
-        dissmissBefore();
-        if (this instanceof ButterKnifeInterface) {
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.unBindButterKnife();
+        dismissBefore();
+        if (this instanceof BaseRegister) {
+           BaseRegister baseRegister = (BaseRegister) this;
+           baseRegister.unRegister(mContentView);
         }
         dialog.dismiss();
         destory();
@@ -85,24 +90,12 @@ public abstract class BaseDialog {
     }
 
     protected abstract View onCreateView();
-
     protected abstract void showBefore();
-
     protected abstract void onResume();
-
-    protected abstract void dissmissBefore();
-
+    protected abstract void dismissBefore();
     protected abstract void destory();
-
     protected abstract Boolean setCancelable();
-
     protected abstract Boolean setCanceledOnTouchOutside();
-
-    public interface ButterKnifeInterface {
-        void initButterKnife(View view);
-
-        void unBindButterKnife();
-    }
 
     public interface OnDismissListener {
         void dismiss();

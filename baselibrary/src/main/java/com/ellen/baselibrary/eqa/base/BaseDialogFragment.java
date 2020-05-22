@@ -19,9 +19,9 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContentView = inflater.inflate(setLayout(), container, false);
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.initButterKnife(mContentView);
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.register(mContentView);
         }
         if(setCancelable() != null) {
             this.setCancelable(setCancelable());
@@ -48,9 +48,9 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.unBindButterKnife();
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.unRegister(mContentView);
         }
     }
 
@@ -60,11 +60,5 @@ public abstract class BaseDialogFragment extends DialogFragment {
     protected abstract Boolean setCancelable();
     protected abstract Boolean setCanceledOnTouchOutside();
     protected abstract Boolean setWinowTransparent();
-
-    //支持ButterKnife的接口
-    public interface ButterKnifeInterface {
-        void initButterKnife(View view);
-        void unBindButterKnife();
-    }
 
 }

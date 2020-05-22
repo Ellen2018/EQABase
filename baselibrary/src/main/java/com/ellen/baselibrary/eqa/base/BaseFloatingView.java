@@ -18,7 +18,7 @@ public abstract class BaseFloatingView {
     private View mContentView;
     private WeakReference<Activity> activityWeakReference;
     private WindowManager.LayoutParams layoutParams;
-    private boolean isFirestAdd = false;
+    private boolean isFirstAdd = false;
     private View.OnTouchListener onTouchListener;
 
     public BaseFloatingView(Activity activity){
@@ -31,8 +31,17 @@ public abstract class BaseFloatingView {
         LayoutInflater inflater;
         inflater = LayoutInflater.from(activity.getApplication());
         mContentView = getFloatingView(inflater);
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.register(mContentView);
+        }
         //初始化view对象，可以绑定控件
-        initView(mContentView);
+        initView();
+        initData();
+    }
+
+    protected <T extends View> T findViewById(int id){
+        return mContentView.findViewById(id);
     }
 
     public View.OnTouchListener getOnTouchListener() {
@@ -43,20 +52,20 @@ public abstract class BaseFloatingView {
         this.onTouchListener = onTouchListener;
     }
 
-    public boolean isFirestAdd() {
-        return isFirestAdd;
+    public boolean isFirstAdd() {
+        return isFirstAdd;
     }
 
     public boolean isShow(){
         return mContentView.getVisibility() == View.VISIBLE;
     }
 
-    public void careatAndShow(){
+    public void createAndShow(){
         if(onTouchListener != null){
             mContentView.setOnTouchListener(onTouchListener);
         }
         windowManager.addView(mContentView,layoutParams);
-        isFirestAdd = true;
+        isFirstAdd = true;
     }
 
     public void hide(){
@@ -68,6 +77,10 @@ public abstract class BaseFloatingView {
     }
 
     public void cancel(){
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.unRegister(mContentView);
+        }
         windowManager.removeView(mContentView);
     }
 
@@ -79,7 +92,8 @@ public abstract class BaseFloatingView {
         return activityWeakReference.get();
     }
 
-    protected abstract void initView(View view);
+    protected abstract void initView();
+    protected abstract void initData();
     protected abstract void setLayoutParams(WindowManager.LayoutParams layoutParams);
     protected abstract View getFloatingView(LayoutInflater inflater);
 

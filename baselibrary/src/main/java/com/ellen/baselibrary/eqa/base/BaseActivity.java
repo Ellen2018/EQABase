@@ -8,6 +8,10 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * 至于横竖屏设置，请在AndroidManifest,xml中进行配置
+ *
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected View rootView;
@@ -22,26 +26,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         }else {
             setContentView(setLayoutId());
         }
-        //是否支持ButterKnife接口
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.initButterKnife();
+        if(this instanceof BaseRegister){
+           BaseRegister baseRegister = (BaseRegister) this;
+           baseRegister.register(rootView);
         }
         initView();
         initData();
-        //横竖屏设置
-        if(isSetVerticalScreen() != null){
-            if(isSetVerticalScreen()){
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }else {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            }
-        }
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    protected void onDestroy() {
+        super.onDestroy();
+        if(this instanceof BaseRegister){
+            BaseRegister baseRegister = (BaseRegister) this;
+            baseRegister.unRegister(rootView);
+        }
     }
 
     //设置状态栏
@@ -55,19 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     protected abstract void initView();
     protected abstract void initData();
-    //设置横竖屏,null->跟随系统,true->横屏,false->竖屏
-    protected Boolean isSetVerticalScreen(){
-        return null;
-    }
-
-    protected String getTag(){
-        return getClass().getSimpleName();
-    }
-
-    //支持ButterKnife的接口
-    public interface ButterKnifeInterface {
-        void initButterKnife();
-    }
 
     protected boolean back(){
         return false;

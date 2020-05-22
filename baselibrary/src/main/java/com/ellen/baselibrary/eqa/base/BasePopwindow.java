@@ -30,14 +30,14 @@ public abstract class BasePopwindow {
 
     protected void onResume(){}
 
-    protected void onstart(){}
+    protected void onStart(){}
 
     private void showInit(){
         showBefore();
         mContentView = onCreateView();
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.initButterKnife(mContentView);
+        if(this instanceof BaseRegister){
+           BaseRegister baseRegister = (BaseRegister) this;
+           baseRegister.register(mContentView);
         }
         popupWindow = new PopupWindow(mContentView,setWidth(),setHeight(),isGetFocus());
 
@@ -56,7 +56,7 @@ public abstract class BasePopwindow {
             @Override
             public void onDismiss() {
                 if(onDismissListener != null){
-                    onDismissListener.dissmiss();
+                    onDismissListener.dismiss();
                 }
                 //判断是否暗化
                 if(isSetShowBackgroundBlack() && !isCanCelAnHua){
@@ -74,7 +74,11 @@ public abstract class BasePopwindow {
             activityWeakReference.get().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             activityWeakReference.get().getWindow().setAttributes(lp);
         }
-        onstart();
+        onStart();
+    }
+
+    protected <T extends View> T findViewById(int id){
+        return mContentView.findViewById(id);
     }
 
     //显示在目标View的下方
@@ -107,9 +111,9 @@ public abstract class BasePopwindow {
     public void dismiss(){
         dismissBefore();
         //解除绑定
-        if(this instanceof ButterKnifeInterface){
-            ButterKnifeInterface butterKnifeInterface = (ButterKnifeInterface) this;
-            butterKnifeInterface.unBindButterKnife();
+        if(this instanceof BaseRegister){
+           BaseRegister baseRegister = (BaseRegister) this;
+           baseRegister.unRegister(mContentView);
         }
         //如果设置了背景暗化，那么这里去除背景暗化
         if(isSetShowBackgroundBlack() && !isCanCelAnHua){
@@ -162,13 +166,8 @@ public abstract class BasePopwindow {
         this.onDismissListener = onDismissListener;
     }
 
-    public interface ButterKnifeInterface{
-        void initButterKnife(View view);
-        void unBindButterKnife();
-    }
-
     public interface OnDismissListener{
-        void dissmiss();
+        void dismiss();
     }
 
 }
