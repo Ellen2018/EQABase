@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.ellen.baselibrary.eqa.base.BaseActivity;
 import com.ellen.baselibrary.eqa.base.BaseRegister;
@@ -13,16 +12,11 @@ import com.ellen.baselibrary.eqa.save.file.AndroidFilePath;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListenerManager;
 import com.ellen.baselibrary.eqa.uitil.PermissionUtils;
-import com.ellen.dhcsqlitelibrary.table.reflection.ZxyReflectionTable;
 import com.ellen.eqabase.bean.Person;
 import com.ellen.eqabase.save.MyLibrary;
 import com.ellen.eqabase.save.PersonTable;
-import com.ellen.sqlitecreate.createsql.create.createtable.SQLField;
 
 import java.io.File;
-import java.util.List;
-
-import SevenZip.Compression.LZMA.Encoder;
 
 public class MainActivity extends BaseActivity implements BaseRegister {
 
@@ -56,22 +50,7 @@ public class MainActivity extends BaseActivity implements BaseRegister {
                 MyLibrary myLibrary = new MyLibrary(MainActivity.this, file.getAbsolutePath(),"person",1);
 
                 PersonTable personTable = new PersonTable(myLibrary.getWriteDataBase(), Person.class);
-                personTable.onCreateTableIfNotExits(new ZxyReflectionTable.OnCreateSQLiteCallback() {
-                    @Override
-                    public void onCreateTableBefore(String tableName, List<SQLField> sqlFieldList, String createSQL) {
-
-                    }
-
-                    @Override
-                    public void onCreateTableFailure(String errMessage, String tableName, List<SQLField> sqlFieldList, String createSQL) {
-
-                    }
-
-                    @Override
-                    public void onCreateTableSuccess(String tableName, List<SQLField> sqlFieldList, String createSQL) {
-                       Log.e("Ellen2018","表创建成功!");
-                    }
-                });
+                personTable.onCreateTableIfNotExits();
             }
 
             @Override

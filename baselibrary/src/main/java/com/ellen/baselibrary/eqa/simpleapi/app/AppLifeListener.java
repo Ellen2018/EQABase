@@ -1,4 +1,4 @@
-package com.ellen.baselibrary.eqa.adapter.application;
+package com.ellen.baselibrary.eqa.simpleapi.app;
 
 import android.app.Activity;
 import android.app.Application;
@@ -19,7 +19,7 @@ public abstract class AppLifeListener implements Application.ActivityLifecycleCa
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         if (lifeActivityCount == 0) {
-            onFirstStartUp();
+            onAppLaunch();
         }
         if (activityList == null) {
             activityList = new ArrayList<>();
@@ -73,7 +73,7 @@ public abstract class AppLifeListener implements Application.ActivityLifecycleCa
     /**
      * 应用首次启动的时候调用
      */
-    protected abstract void onFirstStartUp();
+    protected abstract void onAppLaunch();
 
     /**
      * 切换至后台时调用
