@@ -85,7 +85,7 @@ public class WebViewCachePool {
         if (getAllWebViewSize() >= maxWebViewCount && maxWebViewCount >= 0) {
             //不能进行复用了，达到最大数目
             //将WebView进行完全回收
-            destoryWebView(webView);
+            destroyWebView(webView);
         } else {
             //只是将WebView进行初始化状态
             initWebViewAndUse(webView, jsName);
@@ -112,7 +112,7 @@ public class WebViewCachePool {
      *
      * @param webView
      */
-    private void destoryWebView(WebView webView) {
+    private void destroyWebView(WebView webView) {
         webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
         webView.stopLoading();
         ViewGroup parent = (ViewGroup) webView.getParent();
@@ -147,6 +147,10 @@ public class WebViewCachePool {
         webView.clearCache(true);
     }
 
+    /**
+     * 获取到能够被使用的WebView
+     * @return
+     */
     private WebView getCanUseWebView() {
         WebView canUseWebView = null;
         //先使用复用集合的
