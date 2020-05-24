@@ -30,34 +30,36 @@ public class LocalAppBroadcastManager {
 
     public LocalAppBroadcastManager(Activity activity){
         activityWeakReference = new WeakReference<>(activity);
-        activityLifeListenerManager = new ActivityLifeListenerManager();
         localBroadcastManager = LocalBroadcastManager.getInstance(activityWeakReference.get());
-        FragmentActivity fragmentActivity = (FragmentActivity) activity;
-        activityLifeListenerManager.startActivityLifeListener(fragmentActivity, new ActivityLifeListener() {
-            @Override
-            public void onStart() {
+        if(activity instanceof FragmentActivity) {
+            activityLifeListenerManager = new ActivityLifeListenerManager();
+            FragmentActivity fragmentActivity = (FragmentActivity) activity;
+            activityLifeListenerManager.startActivityLifeListener(fragmentActivity, new ActivityLifeListener() {
+                @Override
+                public void onStart() {
 
-            }
-
-            @Override
-            public void onStop() {
-
-            }
-
-            @Override
-            public void onDestroy() {
-               //注销
-                Set<String> set = broadcastReceiverMap.keySet();
-                for(String action:set){
-                    unRegister(action,broadcastReceiverMap.get(action));
                 }
-            }
 
-            @Override
-            public void onResume() {
+                @Override
+                public void onStop() {
 
-            }
-        });
+                }
+
+                @Override
+                public void onDestroy() {
+                    //注销
+                    Set<String> set = broadcastReceiverMap.keySet();
+                    for (String action : set) {
+                        unRegister(action, broadcastReceiverMap.get(action));
+                    }
+                }
+
+                @Override
+                public void onResume() {
+
+                }
+            });
+        }
     }
 
     public void register(String action,BroadcastReceiver broadcastReceiver){

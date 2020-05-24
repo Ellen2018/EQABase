@@ -28,33 +28,37 @@ public class SystemBroadcastManager {
 
     public SystemBroadcastManager(Activity activity){
         activityWeakReference = new WeakReference<>(activity);
-        activityLifeListenerManager = new ActivityLifeListenerManager();
-        FragmentActivity fragmentActivity = (FragmentActivity) activity;
-        activityLifeListenerManager.startActivityLifeListener(fragmentActivity, new ActivityLifeListener() {
-            @Override
-            public void onStart() {
+        //仅仅Activity继承于FragmentActivity才能机进行无痕迹注销
+        //否则你只能手动注销
+        if(activity instanceof FragmentActivity) {
+            activityLifeListenerManager = new ActivityLifeListenerManager();
+            FragmentActivity fragmentActivity = (FragmentActivity) activity;
+            activityLifeListenerManager.startActivityLifeListener(fragmentActivity, new ActivityLifeListener() {
+                @Override
+                public void onStart() {
 
-            }
-
-            @Override
-            public void onStop() {
-
-            }
-
-            @Override
-            public void onDestroy() {
-                //注销
-                Set<String> set = broadcastReceiverMap.keySet();
-                for(String action:set){
-                    unRegister(action,broadcastReceiverMap.get(action));
                 }
-            }
 
-            @Override
-            public void onResume() {
+                @Override
+                public void onStop() {
 
-            }
-        });
+                }
+
+                @Override
+                public void onDestroy() {
+                    //注销
+                    Set<String> set = broadcastReceiverMap.keySet();
+                    for (String action : set) {
+                        unRegister(action, broadcastReceiverMap.get(action));
+                    }
+                }
+
+                @Override
+                public void onResume() {
+
+                }
+            });
+        }
     }
 
     public void register(String action,BroadcastReceiver broadcastReceiver){
@@ -81,7 +85,6 @@ public class SystemBroadcastManager {
     private void unRegisterBroadcast(String action,BroadcastReceiver broadcastReceiver){
         intentFilterMap.remove(action);
         intentFilterMap.remove(action);
-        Log.e("Ellen2018","注销广播:"+action);
         activityWeakReference.get().unregisterReceiver(broadcastReceiver);
     }
 

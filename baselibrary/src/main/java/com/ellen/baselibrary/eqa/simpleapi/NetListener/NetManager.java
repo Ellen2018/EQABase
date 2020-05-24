@@ -1,5 +1,6 @@
 package com.ellen.baselibrary.eqa.simpleapi.NetListener;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,18 +11,24 @@ import com.ellen.baselibrary.eqa.simpleapi.broadcast.SystemBroadcastManager;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * 网络状态监听
+ * FragmentActivity下可进行无痕迹注销
+ */
 public class NetManager {
 
     private NetListener netListener;
-    private WeakReference<FragmentActivity> fragmentActivityWeakReference;
+    private WeakReference<Activity> fragmentActivityWeakReference;
     private final String NET_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+    private SystemBroadcastManager systemBroadcastManager;
+    private NetBroadcastReceiver netBroadcastReceiver;
 
-    public NetManager(FragmentActivity fragmentActivity,NetListener netListener){
+    public NetManager(Activity activity,NetListener netListener){
         this.setNetListener(netListener);
-        fragmentActivityWeakReference = new WeakReference<>(fragmentActivity);
+        fragmentActivityWeakReference = new WeakReference<>(activity);
         //注册广播
-        SystemBroadcastManager systemBroadcastManager = new SystemBroadcastManager(fragmentActivity);
-        NetBroadcastReceiver netBroadcastReceiver = new NetBroadcastReceiver();
+        systemBroadcastManager = new SystemBroadcastManager(activity);
+        netBroadcastReceiver = new NetBroadcastReceiver();
         netBroadcastReceiver.setChangeListener(new NetBroadcastReceiver.ChangeListener() {
             @Override
             public void change() {
@@ -29,6 +36,12 @@ public class NetManager {
             }
         });
         systemBroadcastManager.register(NET_ACTION,netBroadcastReceiver);
+    }
+
+    public void cancel(){
+        if(systemBroadcastManager != null){
+            systemBroadcastManager.unRegister(NET_ACTION,netBroadcastReceiver);
+        }
     }
 
     public void setNetListener(NetListener netListener) {
