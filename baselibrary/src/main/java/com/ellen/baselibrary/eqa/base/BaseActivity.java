@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * 至于横竖屏设置，请在AndroidManifest,xml中进行配置
+ * 至于横竖屏设置，请在AndroidManifest.xml中进行配置
  *
  */
 public abstract class BaseActivity extends AppCompatActivity {

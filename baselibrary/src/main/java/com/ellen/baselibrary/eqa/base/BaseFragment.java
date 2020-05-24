@@ -32,10 +32,6 @@ public abstract class BaseFragment extends Fragment {
         return (T) view;
     }
 
-    protected String getTAG(){
-        return getClass().getSimpleName();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();

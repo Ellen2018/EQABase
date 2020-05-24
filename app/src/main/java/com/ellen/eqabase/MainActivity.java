@@ -11,6 +11,8 @@ import com.ellen.baselibrary.eqa.base.BaseRegister;
 import com.ellen.baselibrary.eqa.save.file.AndroidFilePath;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListenerManager;
+import com.ellen.baselibrary.eqa.simpleapi.NetListener.NetListener;
+import com.ellen.baselibrary.eqa.simpleapi.NetListener.NetManager;
 import com.ellen.baselibrary.eqa.uitil.PermissionUtils;
 import com.ellen.eqabase.bean.Person;
 import com.ellen.eqabase.save.MyLibrary;
@@ -21,6 +23,7 @@ import java.io.File;
 public class MainActivity extends BaseActivity implements BaseRegister {
 
     private PermissionUtils permissionUtils;
+    private NetManager netManager;
 
     @Override
     protected int setLayoutId() {
@@ -39,6 +42,25 @@ public class MainActivity extends BaseActivity implements BaseRegister {
 
     @Override
     protected void initData() {
+
+        //无须自己手动注销，无痕迹注册 & 注销
+        netManager = new NetManager(this, new NetListener() {
+            @Override
+            public void wifiStatus() {
+                Log.e("Ellen2018","网络状态:WiFi");
+            }
+
+            @Override
+            public void flowStatus() {
+                Log.e("Ellen2018","网络状态:流量模式");
+            }
+
+            @Override
+            public void noNetStatus() {
+                Log.e("Ellen2018","网络状态:无网络");
+            }
+        });
+
         permissionUtils = new PermissionUtils(this);
         permissionUtils.startCheckFileReadWritePermission(0, new PermissionUtils.PermissionCallback() {
             @Override
@@ -88,7 +110,7 @@ public class MainActivity extends BaseActivity implements BaseRegister {
     @Override
     protected boolean back() {
         Toast.makeText(this,"点击了返回键",Toast.LENGTH_SHORT).show();
-        return true;
+        return false;
     }
 
     @Override

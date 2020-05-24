@@ -34,6 +34,10 @@ public class WebViewCachePool {
      */
     private int maxWebViewCount = 10;
 
+    public void setMaxWebViewCount(int maxWebViewCount) {
+        this.maxWebViewCount = maxWebViewCount;
+    }
+
     private static WebViewCachePool webViewCachePool;
 
     private WeakReference<Context> contextWeakReference;

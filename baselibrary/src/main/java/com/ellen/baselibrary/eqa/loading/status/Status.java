@@ -7,16 +7,16 @@ public class Status{
     /**
      * 状态值
      */
-    private int satusCode;
+    private int statusCode;
 
     public StatusUpdate statusUpdate;
 
-    public int getSatusCode() {
-        return satusCode;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setSatusCode(int satusCode) {
-        this.satusCode = satusCode;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public void setStatusUpdate(StatusUpdate statusUpdate) {

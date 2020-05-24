@@ -11,7 +11,7 @@ import android.widget.PopupWindow;
 
 import java.lang.ref.WeakReference;
 
-public abstract class BasePopwindow {
+public abstract class BasePopWindow {
 
     private PopupWindow popupWindow;
     private WeakReference<Activity> activityWeakReference;
@@ -20,12 +20,8 @@ public abstract class BasePopwindow {
     protected View mContentView;
     protected boolean isCanCelAnHua = false;
 
-    public BasePopwindow(Activity activity){
+    public BasePopWindow(Activity activity){
         activityWeakReference = new WeakReference<>(activity);
-    }
-
-    protected String getTag(){
-        return getClass().getSimpleName();
     }
 
     protected void onResume(){}

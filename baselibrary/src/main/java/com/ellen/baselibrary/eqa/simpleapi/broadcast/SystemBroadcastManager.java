@@ -3,6 +3,8 @@ package com.ellen.baselibrary.eqa.simpleapi.broadcast;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
+import android.util.Log;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.ellen.baselibrary.eqa.simpleapi.ActivityLifeListener.ActivityLifeListener;
@@ -41,7 +43,7 @@ public class SystemBroadcastManager {
 
             @Override
             public void onDestroy() {
-               //注销
+                //注销
                 Set<String> set = broadcastReceiverMap.keySet();
                 for(String action:set){
                     unRegister(action,broadcastReceiverMap.get(action));
@@ -79,6 +81,7 @@ public class SystemBroadcastManager {
     private void unRegisterBroadcast(String action,BroadcastReceiver broadcastReceiver){
         intentFilterMap.remove(action);
         intentFilterMap.remove(action);
+        Log.e("Ellen2018","注销广播:"+action);
         activityWeakReference.get().unregisterReceiver(broadcastReceiver);
     }
 

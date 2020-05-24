@@ -8,10 +8,10 @@ public abstract class BaseKeyValueImpl extends BaseAbstractKeyValueHelper {
 
     public BaseKeyValueImpl(Context context, String name) {
         super(name);
-        baseAbstractKeyValueHelper = getKeyValueImapl(context,name);
+        baseAbstractKeyValueHelper = getKeyValueImpl(context,name);
     }
 
-    protected abstract BaseAbstractKeyValueHelper getKeyValueImapl(Context context, String fileName);
+    protected abstract BaseAbstractKeyValueHelper getKeyValueImpl(Context context, String fileName);
 
     @Override
     public void save(String key, Object value) {
