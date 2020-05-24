@@ -34,10 +34,6 @@ public class WebViewCachePool {
      */
     private int maxWebViewCount = 10;
 
-    public void setMaxWebViewCount(int maxWebViewCount) {
-        this.maxWebViewCount = maxWebViewCount;
-    }
-
     private static WebViewCachePool webViewCachePool;
 
     private WeakReference<Context> contextWeakReference;
@@ -62,6 +58,9 @@ public class WebViewCachePool {
 
     public void setNewWebView(NewWebView newWebView) {
         this.newWebView = newWebView;
+        if(this.newWebView != null){
+            maxWebViewCount = this.newWebView.maxSize();
+        }
     }
 
     public WebView getWebView() {
@@ -184,7 +183,7 @@ public class WebViewCachePool {
         if(newWebView == null) {
              webView = new WebView(contextWeakReference.get());
         }else {
-            webView = newWebView.getNewWebView();
+            webView = newWebView.getNewWebView(contextWeakReference.get());
         }
         return webView;
     }
