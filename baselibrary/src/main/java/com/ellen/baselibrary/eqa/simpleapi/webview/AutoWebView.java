@@ -7,7 +7,7 @@ import android.webkit.WebView;
  * 如果你的项目中新生成的是自定义的WebView,那么就需要:
  * WebViewCachePool.setNewWebView来进行自定义设置
  */
-public interface NewWebView {
+public interface AutoWebView {
     /**
      * 获取当一个WebView对象
      * @return
