@@ -1,14 +1,17 @@
 package com.ellen.baselibrary.eqa.adapter.recyclerview;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
@@ -29,10 +32,17 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
     private Map<Integer, BaseViewHolder> footerMap;
     private Map<View, Integer> footerViewMap;
     private List<View> footerViewList;
+    private RecyclerView mRecyclerView;
 
     public void setDataList(List<T> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.mRecyclerView = recyclerView;
     }
 
     public void addHeaderView(View headerView) {
@@ -259,21 +269,31 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
 
     /**
      * 让Item宽度平分屏幕
+     * 指定间隔计算宽度
+     *
      * @param itemView
      * @param jG
      * @param dF
      * @param position
      */
-    protected final void junFen(View itemView, float jG, float dF, int position) {
+    protected final void junFenMeasureWidth(View itemView,float jG, float dF, int position) {
+        int p;
+        if (position == 0) {
+            p = -1;
+        } else if (position == getDataList().size() - 1) {
+            p = 1;
+        } else {
+            p = 0;
+        }
         ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-        float itemWidth = ((float)itemView.getContext().getResources().getDisplayMetrics().widthPixels - jG * (dF + 1)) / dF;
-        if(layoutParams instanceof LinearLayout.LayoutParams){
+        float itemWidth = ((float) itemView.getContext().getResources().getDisplayMetrics().widthPixels - jG * (dF + 1)) / dF;
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
             LinearLayout.LayoutParams currentLayoutParams = (LinearLayout.LayoutParams) layoutParams;
             currentLayoutParams.width = (int) itemWidth;
-            if (position < 0) {
+            if (p < 0) {
                 currentLayoutParams.leftMargin = (int) jG;
                 currentLayoutParams.rightMargin = (int) (jG / 2);
-            } else if (position == 0) {
+            } else if (p == 0) {
                 currentLayoutParams.leftMargin = (int) (jG / 2);
                 currentLayoutParams.rightMargin = (int) (jG / 2);
             } else {
@@ -281,13 +301,13 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
                 currentLayoutParams.rightMargin = (int) jG;
             }
             itemView.setLayoutParams(layoutParams);
-        }else if(layoutParams instanceof RelativeLayout.LayoutParams){
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
             RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) layoutParams;
             currentLayoutParams.width = (int) itemWidth;
-            if (position < 0) {
+            if (p < 0) {
                 currentLayoutParams.leftMargin = (int) jG;
                 currentLayoutParams.rightMargin = (int) (jG / 2);
-            } else if (position == 0) {
+            } else if (p == 0) {
                 currentLayoutParams.leftMargin = (int) (jG / 2);
                 currentLayoutParams.rightMargin = (int) (jG / 2);
             } else {
@@ -295,13 +315,13 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
                 currentLayoutParams.rightMargin = (int) jG;
             }
             itemView.setLayoutParams(layoutParams);
-        }else if(layoutParams instanceof FrameLayout.LayoutParams){
+        } else if (layoutParams instanceof FrameLayout.LayoutParams) {
             FrameLayout.LayoutParams currentLayoutParams = (FrameLayout.LayoutParams) layoutParams;
             currentLayoutParams.width = (int) itemWidth;
-            if (position < 0) {
+            if (p < 0) {
                 currentLayoutParams.leftMargin = (int) jG;
                 currentLayoutParams.rightMargin = (int) (jG / 2);
-            } else if (position == 0) {
+            } else if (p == 0) {
                 currentLayoutParams.leftMargin = (int) (jG / 2);
                 currentLayoutParams.rightMargin = (int) (jG / 2);
             } else {
@@ -311,5 +331,4 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
             itemView.setLayoutParams(layoutParams);
         }
     }
-
 }

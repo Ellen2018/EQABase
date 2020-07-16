@@ -2,6 +2,7 @@ package com.ellen.eqabase;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,8 +56,21 @@ public class MainActivity extends BaseActivity implements BaseRegister {
         arrayList.add("a");
         arrayList.add("b");
         arrayList.add("c");
-        arrayList.add("d");
-        arrayList.add("e");
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
         BaseAdapter baseAdapter = new BaseAdapter(this,arrayList);
         recyclerView.setAdapter(baseAdapter);
 

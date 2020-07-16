@@ -33,27 +33,8 @@ public class BaseAdapter extends BaseSingleRecyclerViewAdapter<String, BaseAdapt
 
     @Override
     protected void showData(TestViewHolder testViewHolder, String data, int position) {
+        junFenMeasureWidth(testViewHolder.rl,20,4,  position);
         testViewHolder.textView.setText(data);
-        int p;
-        if (position == 0) {
-            p = -1;
-        } else if (position == getDataList().size() - 1) {
-            p = 1;
-        } else {
-            p = 0;
-        }
-        junFen(testViewHolder.rl, 20, 3.5f, p);
-        switch (position) {
-            case 0:
-                testViewHolder.textView.setBackgroundColor(Color.RED);
-                break;
-            case 1:
-                testViewHolder.textView.setBackgroundColor(Color.BLUE);
-                break;
-            case 2:
-                testViewHolder.textView.setBackgroundColor(Color.YELLOW);
-                break;
-        }
     }
 
     static class TestViewHolder extends BaseViewHolder {
