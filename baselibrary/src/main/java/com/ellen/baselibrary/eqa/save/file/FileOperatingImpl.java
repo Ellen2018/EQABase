@@ -95,7 +95,7 @@ public class FileOperatingImpl implements FileOperatingInterface {
     }
 
     @Override
-    public void copyFileFoldeer(String filePath, String fileName, String targetFilePath) throws IOException {
+    public void copyFileFolder(String filePath, String fileName, String targetFilePath) throws IOException {
         File file = new File(filePath,fileName);
         if(file.isFile()){
             //是文件
@@ -113,7 +113,7 @@ public class FileOperatingImpl implements FileOperatingInterface {
                     copyFile(f.getParentFile().getAbsolutePath(),f.getName(),fileCopy.getAbsolutePath());
                 }else {
                     //是文件夹
-                    copyFileFoldeer(f.getParentFile().getAbsolutePath(),f.getName(),fileCopy.getAbsolutePath());
+                    copyFileFolder(f.getParentFile().getAbsolutePath(),f.getName(),fileCopy.getAbsolutePath());
                 }
             }
         }

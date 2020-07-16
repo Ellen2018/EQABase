@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ellen.baselibrary.eqa.base.BaseActivity;
 import com.ellen.baselibrary.eqa.base.BaseRegister;
@@ -19,11 +21,13 @@ import com.ellen.eqabase.save.MyLibrary;
 import com.ellen.eqabase.save.PersonTable;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity implements BaseRegister {
 
     private PermissionUtils permissionUtils;
     private NetManager netManager;
+    private RecyclerView recyclerView;
 
     @Override
     protected int setLayoutId() {
@@ -42,6 +46,19 @@ public class MainActivity extends BaseActivity implements BaseRegister {
 
     @Override
     protected void initData() {
+
+        recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("a");
+        arrayList.add("b");
+        arrayList.add("c");
+        arrayList.add("d");
+        arrayList.add("e");
+        BaseAdapter baseAdapter = new BaseAdapter(this,arrayList);
+        recyclerView.setAdapter(baseAdapter);
 
         //无须自己手动注销，无痕迹注册 & 注销
         netManager = new NetManager(this, new NetListener() {

@@ -61,6 +61,6 @@ public interface FileOperatingInterface {
      * @param fileName 被拷贝的文件的名字
      * @param targetFilePath
      */
-    void copyFileFoldeer(String filePath, String fileName, String targetFilePath) throws IOException;
+    void copyFileFolder(String filePath, String fileName, String targetFilePath) throws IOException;
 
 }

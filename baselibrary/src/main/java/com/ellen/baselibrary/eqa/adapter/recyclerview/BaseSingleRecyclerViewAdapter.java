@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +30,7 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
     private Map<View, Integer> footerViewMap;
     private List<View> footerViewList;
 
-    public void setDataList(List<T> dataList){
+    public void setDataList(List<T> dataList) {
         this.dataList = dataList;
         notifyDataSetChanged();
     }
@@ -154,12 +157,12 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
                     }
                 });
             }
-            if(onItemLongClickListener != null){
+            if (onItemLongClickListener != null) {
                 final int finalTruePosition = truePosition;
                 vh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        return onItemLongClickListener.onItemLongClick(vh,finalTruePosition);
+                        return onItemLongClickListener.onItemLongClick(vh, finalTruePosition);
                     }
                 });
             }
@@ -253,4 +256,60 @@ public abstract class BaseSingleRecyclerViewAdapter<T, VH extends BaseViewHolder
         footerViewList = null;
         notifyDataSetChanged();
     }
+
+    /**
+     * 让Item宽度平分屏幕
+     * @param itemView
+     * @param jG
+     * @param dF
+     * @param position
+     */
+    protected final void junFen(View itemView, float jG, float dF, int position) {
+        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+        float itemWidth = ((float)itemView.getContext().getResources().getDisplayMetrics().widthPixels - jG * (dF + 1)) / dF;
+        if(layoutParams instanceof LinearLayout.LayoutParams){
+            LinearLayout.LayoutParams currentLayoutParams = (LinearLayout.LayoutParams) layoutParams;
+            currentLayoutParams.width = (int) itemWidth;
+            if (position < 0) {
+                currentLayoutParams.leftMargin = (int) jG;
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else if (position == 0) {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) jG;
+            }
+            itemView.setLayoutParams(layoutParams);
+        }else if(layoutParams instanceof RelativeLayout.LayoutParams){
+            RelativeLayout.LayoutParams currentLayoutParams = (RelativeLayout.LayoutParams) layoutParams;
+            currentLayoutParams.width = (int) itemWidth;
+            if (position < 0) {
+                currentLayoutParams.leftMargin = (int) jG;
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else if (position == 0) {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) jG;
+            }
+            itemView.setLayoutParams(layoutParams);
+        }else if(layoutParams instanceof FrameLayout.LayoutParams){
+            FrameLayout.LayoutParams currentLayoutParams = (FrameLayout.LayoutParams) layoutParams;
+            currentLayoutParams.width = (int) itemWidth;
+            if (position < 0) {
+                currentLayoutParams.leftMargin = (int) jG;
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else if (position == 0) {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) (jG / 2);
+            } else {
+                currentLayoutParams.leftMargin = (int) (jG / 2);
+                currentLayoutParams.rightMargin = (int) jG;
+            }
+            itemView.setLayoutParams(layoutParams);
+        }
+    }
+
 }
